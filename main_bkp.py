@@ -32,8 +32,8 @@ def loop(last=[-1]):
 # ******************************************************************
 
 # porta Serial:
-serial_port_name =  '/dev/ttyUSB0' # para teste de desenvolvimento
-#serial_port_name =  '/dev/ttyS0' # para simulação ILT
+# serial_port_name =  '/dev/ttyUSB0' # para teste de desenvolvimento
+serial_port_name =  '/dev/ttyS0' # para simulação ILT
 
 # instancia serial:
 ser = serial.Serial(serial_port_name, 4800,timeout=0.01)
