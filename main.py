@@ -29,7 +29,7 @@ def loop(last=[-1]):
     
     pacote = bytes(msg,'ascii')    
     ser.write(pacote)
-    receive = ser.read_all() #read_until(b'DS') #read_all() #.decode('ascii')
+    receive = ser.read_until(b'D') #read_until(b'DS') #read_all() #.decode('ascii')
 
     print(receive)
     act = perf_counter()
