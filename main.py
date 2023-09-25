@@ -44,7 +44,7 @@ def loop(last=[-1]):
             idx=len_traj-1
 
     print('enter para parar')
-    
+
     if stop!='run':
         ser.close()
       
@@ -71,8 +71,8 @@ mode2 = '6'
 canal = '1'
 
 # porta Serial:
-serial_port_name =  '/dev/ttyUSB0' # para teste de desenvolvimento
-# serial_port_name =  '/dev/ttyS0' # para simulação ILT
+# serial_port_name =  '/dev/ttyUSB0' # para teste de desenvolvimento
+serial_port_name =  '/dev/ttyS0' # para simulação ILT
 
 # passo da trajetória:
 passo = 1  # passo da trajetória 1 - passo real, 10 - acelerado em 10x 
