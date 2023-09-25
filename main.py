@@ -71,15 +71,16 @@ mode2 = '6'
 canal = '1'
 
 # porta Serial:
-# serial_port_name =  '/dev/ttyUSB0' # para teste de desenvolvimento
-serial_port_name =  '/dev/ttyS0' # para simulação ILT
+# SERIAL_PORT_NAME =  '/dev/ttyUSB0' # para teste de desenvolvimento
+SERIAL_PORT_NAME =  '/dev/ttyS0' # para simulação ILT
+BAUD_RATE = 4800
+PARITY = 'E'
 
 # passo da trajetória:
-passo = 1  # passo da trajetória 1 - passo real, 10 - acelerado em 10x 
+passo = 10  # passo da trajetória 1 - passo real, 10 - acelerado em 10x 
 
 # instancia serial:
-ser = serial.Serial(serial_port_name, 4800,timeout=0.01)
-# ser = serial.Serial('/dev/ttyS0', 4800,timeout=0.01)
+ser = serial.Serial(SERIAL_PORT_NAME, BAUD_RATE,timeout=0.01, parity=PARITY)
 
 # fim das configurações
 # ******************************************************************
