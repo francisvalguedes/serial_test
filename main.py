@@ -13,9 +13,9 @@ import pymap3d as pm
 def loop(last=[-1]):
     global idx
     #threading.Timer(1.0, loop,[satellite, tvar, inv_J, sp_time]).start()
-    if len(stop)>1:
+    if stop=='run':
         threading.Timer(0.0996, loop).start()
-    # ser.write(b'Francisval\r\n')
+
     now = datetime.datetime.now()
 
     data_hora = now.strftime("%d%m%y%H%M%S%f")[:-3]
@@ -43,7 +43,11 @@ def loop(last=[-1]):
         if not idx<len_traj:
             idx=len_traj-1
 
-    print('enter para parar')  
+    print('enter para parar')
+    
+    if stop!='run':
+        ser.close()
+      
 
 
 # Inicialização da trajetória
@@ -67,8 +71,8 @@ mode2 = '6'
 canal = '1'
 
 # porta Serial:
-# serial_port_name =  '/dev/ttyUSB0' # para teste de desenvolvimento
-serial_port_name =  '/dev/ttyS0' # para simulação ILT
+serial_port_name =  '/dev/ttyUSB0' # para teste de desenvolvimento
+# serial_port_name =  '/dev/ttyS0' # para simulação ILT
 
 # passo da trajetória:
 passo = 1  # passo da trajetória 1 - passo real, 10 - acelerado em 10x 
@@ -83,13 +87,13 @@ ser = serial.Serial(serial_port_name, 4800,timeout=0.01)
 # inicializa variaveis
 len_traj = len(azimute)
 idx = 0
-stop = 'casa'
+stop = 'run'
 
 # chama a função do tread
 loop()
 
 # enquanto não for digitado enter solicita entrada para parar o tread
-while stop != '':    
+while stop == 'run':    
     stop = input('enter to stop\n')
 
 
