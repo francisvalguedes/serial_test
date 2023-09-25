@@ -35,7 +35,7 @@ def loop(last=[-1]):
     act = perf_counter()
     dur = act -last[0]    
     #print('stime: {:.5f}'.format(dur))
-    print('enviado: ' + msg+ ' periodo(s): {:.5f}'.format(dur)+' tempo(s): {:.5f}'.format(idx/10.0))
+    print('enviado: ' + msg+ ' periodo(s): {:.5f}'.format(dur)+' tempo(s): {:.2f}'.format(idx/10.0))
     last[0] =act
 
     if idx<len_traj:
