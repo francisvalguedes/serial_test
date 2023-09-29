@@ -49,18 +49,6 @@ def loop(last=[-1]):
         ser.close()
       
 
-
-# Inicialização da trajetória
-
-lat00, lon00, h00 = -5.922204, -35.161500, 32.0
-lat0, lon0, h0 = -5.922274, -35.171978, 59.0
-
-txt_files = glob.glob('trn/*.trn')
-arr = np.loadtxt(txt_files[0],delimiter=",",skiprows=1 )
-ecef_x, ecef_y, ecef_z = pm.enu2ecef(arr[:,0], arr[:,1], arr[:,2], lat00, lon00, h00)
-enux, enux, enux = pm.ecef2enu(ecef_x, ecef_y, ecef_z, lat0, lon0, h0 )
-azimute, elevacao, range = pm.enu2aer(arr[:,0], arr[:,1], arr[:,2], deg=True)
-
 # Configurações:
 # ******************************************************************
 fixo_traj = 'fix' # para ponto fixo: 'fixo', ou para trajetória: qualquer outro texto
@@ -88,8 +76,32 @@ passo = 10  # passo da trajetória 1 - passo real, 10 - acelerado em 10x
 # instancia serial:
 ser = serial.Serial(SERIAL_PORT_NAME, BAUD_RATE,timeout=0.01, parity=PARITY)
 
+# Rampa
+lat00, lon00, h00 = -5.922204, -35.161500, 32.0
+
+#Sensor
+lat0, lon0, h0 = -5.922274, -35.171978, 59.0
+
 # fim das configurações
 # ******************************************************************
+
+# Inicialização da trajetória
+
+txt_files = glob.glob('trn/*.trn')
+sel_traj = 0
+
+if len(txt_files) > 1:
+    idx = 0
+    for line in txt_files:
+        print(str(idx) + "-" + line + "\n")
+        idx+=1
+    
+    sel_traj = int(input("selecione a trajetória: "))
+
+arr = np.loadtxt(txt_files[sel_traj],delimiter=",",skiprows=1 )
+ecef_x, ecef_y, ecef_z = pm.enu2ecef(arr[:,0], arr[:,1], arr[:,2], lat00, lon00, h00)
+enux, enuy, enuz = pm.ecef2enu(ecef_x, ecef_y, ecef_z, lat0, lon0, h0 )
+azimute, elevacao, range = pm.enu2aer(enux, enuy, enuz, deg=True)
 
 # inicializa variaveis
 len_traj = len(azimute)
